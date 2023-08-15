@@ -8,12 +8,12 @@ type SendMsgReq struct {
 	TempTargetId string `json:"temp_target_id"`
 }
 """
-
+from kook_api.event import MessageType
 
 
 class SendMsgReq:
-    def __init__(self, target_id, content, message_type=9, quote='', nonce='', temp_target_id=''):
-        self.__type = message_type
+    def __init__(self, target_id, content, message_type=MessageType.K_MARKDOWN, quote='', nonce='', temp_target_id=''):
+        self.__type = message_type.value
         self.__target_id = target_id
         self.__content = content
         self.__quote = quote

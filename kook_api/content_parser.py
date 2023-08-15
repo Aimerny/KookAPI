@@ -46,17 +46,18 @@ def parse_k_md_event(event:Event, event_dict:dict):
     # set type to kmarkdown
     event.type = MessageType.K_MARKDOWN.value
     event.content = event_dict[CONTENT]
+    event.channel_id = event_dict[TARGET_ID]
+
 
     extra = event_dict[EXTRA]
 
     event.nickname = extra[AUTHOR][NICKNAME]
+    event.username = extra[AUTHOR][USERNAME]
     event.raw_content = extra[K_MARKDOWN][RAW_CONTENT]
     if event.channel_type == ChannelType.GROUP.value:
         event.channel_name = extra[CHANNEL_NAME]
     __server.logger.debug(f"k markdown received:{event}")
-    req = SendMsgReq(target_id='8191233839150843', content='[南国]:?', message_type=9)
-    kook_api.get_api().send_message_to_channel(req)
     __server.dispatch_event(
-        LiteralEvent("kook_api.on_message"),
-        (__ws_server, event)
+        LiteralEvent("kook_api.on_message"),(event.raw_content ,event)
+
     )
