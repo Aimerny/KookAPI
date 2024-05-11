@@ -11,3 +11,6 @@ AUTHOR = "author"
 CHANNEL_NAME = "channel_name"
 TARGET_ID = "target_id"
 USERNAME = "username"
+IDENTIFIED_USERNAME = "identified_username"
+IDENTIFY_NUM = "identify_num"
+

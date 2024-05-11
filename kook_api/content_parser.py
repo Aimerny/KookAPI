@@ -5,12 +5,13 @@ from mcdreforged.plugin.plugin_event import LiteralEvent
 from mcdreforged.plugin.server_interface import PluginServerInterface
 
 import kook_api
-from kook_api.event import Event,ChannelType,MessageType
+from kook_api.event import Event, ChannelType, MessageType
 from kook_api.constsant.receive_data_key import *
 from kook_api.model.send_message import SendMsgReq
 
 __server: PluginServerInterface
 __ws_server: websockets
+
 
 def event_parse(data: str, server: PluginServerInterface, ws_server: websockets):
     global __server, __ws_server
@@ -42,22 +43,22 @@ def event_parse(data: str, server: PluginServerInterface, ws_server: websockets)
         parse_k_md_event(kook_event, event_dict)
 
 
-def parse_k_md_event(event:Event, event_dict:dict):
+def parse_k_md_event(event: Event, event_dict: dict):
     # set type to kmarkdown
     event.type = MessageType.K_MARKDOWN.value
     event.content = event_dict[CONTENT]
     event.channel_id = event_dict[TARGET_ID]
-
 
     extra = event_dict[EXTRA]
 
     event.nickname = extra[AUTHOR][NICKNAME]
     event.username = extra[AUTHOR][USERNAME]
     event.raw_content = extra[K_MARKDOWN][RAW_CONTENT]
+    # format: username#0123
+    event.identified_username = f"{extra[AUTHOR][USERNAME]}#{extra[AUTHOR][IDENTIFY_NUM]}"
     if event.channel_type == ChannelType.GROUP.value:
         event.channel_name = extra[CHANNEL_NAME]
     __server.logger.debug(f"k markdown received:{event}")
     __server.dispatch_event(
-        LiteralEvent("kook_api.on_message"),(event.raw_content ,event)
-
+        LiteralEvent("kook_api.on_message"), (event.raw_content, event)
     )
