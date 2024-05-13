@@ -1,4 +1,5 @@
 import json
+from typing import Optional
 
 import websockets
 import requests
@@ -7,6 +8,7 @@ from mcdreforged.plugin.server_interface import PluginServerInterface
 import kook_api.constsant.api_uri as api_uri
 from kook_api.event import Event, MessageType
 from kook_api.model.send_message import SendMsgReq
+from kook_api.model.channels_info_resp import ChannelsInfoResp,ChannelInfo
 
 
 class KookApi:
@@ -38,6 +40,18 @@ class KookApi:
         self._logger().debug(f"A message send to kook bot:{req.content}, target channel is:{req.target_id}")
         if resp.status_code != 200:
             self._logger().warning(f"Send message failed! Exception response is :'{resp.content}'")
+
+    def search_channels(self, search_key: str) -> Optional[ChannelsInfoResp]:
+        params = {
+            "searchKey": search_key
+        }
+        resp = requests.get(url=self._get_api_url(api_uri.CHANNEL_SEARCH), params=params, headers=self._headers)
+        self._logger().debug(f"query channels msg from kook. search key is :{search_key}")
+        if resp.status_code != 200:
+            self._logger().error(f"query channel msg failed!")
+            return None
+        channels_info = ChannelsInfoResp(**json.loads(resp.content))
+        return channels_info
 
     def reply(self, event: Event, content: str):
         req = SendMsgReq(target_id=event.channel_id, content=content)
