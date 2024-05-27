@@ -1,13 +1,3 @@
-"""
-type SendMsgReq struct {
-	MessageType  int    `json:"type"`
-	TargetId     string `json:"target_id"`
-	Content      string `json:"content"`
-	Quote        string `json:"quote"`
-	Nonce        string `json:"nonce"`
-	TempTargetId string `json:"temp_target_id"`
-}
-"""
 from kook_api.event import MessageType
 
 
@@ -48,5 +38,6 @@ class SendMsgReq:
         return {
             'type': self.__type,
             'target_id': self.__target_id,
-            'content': self.__content
+            'content': self.__content,
+            'quote': self.__quote
         }

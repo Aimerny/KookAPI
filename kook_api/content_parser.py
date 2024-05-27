@@ -48,6 +48,7 @@ def parse_k_md_event(event: Event, event_dict: dict):
     event.type = MessageType.K_MARKDOWN.value
     event.content = event_dict[CONTENT]
     event.channel_id = event_dict[TARGET_ID]
+    event.msg_id = event_dict[MSG_ID]
 
     extra = event_dict[EXTRA]
 

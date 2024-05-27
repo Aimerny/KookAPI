@@ -54,5 +54,5 @@ class KookApi:
         return channels_info
 
     def reply(self, event: Event, content: str):
-        req = SendMsgReq(target_id=event.channel_id, content=content)
+        req = SendMsgReq(target_id=event.channel_id, content=content, quote=event.msg_id)
         self.send_message_to_channel(req)

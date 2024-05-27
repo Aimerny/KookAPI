@@ -13,4 +13,5 @@ TARGET_ID = "target_id"
 USERNAME = "username"
 IDENTIFIED_USERNAME = "identified_username"
 IDENTIFY_NUM = "identify_num"
+MSG_ID = "msg_id"
 

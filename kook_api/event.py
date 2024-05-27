@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class Event:
+    msg_id: str = None
     author_id: str = None
     nickname: str = None
     username: str = None
@@ -14,7 +15,7 @@ class Event:
     channel_id: str = None
 
     def __str__(self):
-        return f"Event(author_id={self.author_id}, nickname={self.nickname}, " \
+        return f"Event(msg_id={self.msg_id}, author_id={self.author_id}, nickname={self.nickname}, " \
                f"channel_type={self.channel_type}, type={self.type}, " \
                f"content={self.content}, channel_name={self.channel_name}, " \
                f"raw_content={self.raw_content}, channel_id={self.channel_id}," \
