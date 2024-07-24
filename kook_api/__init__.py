@@ -1,4 +1,4 @@
-from mcdreforged.plugin.server_interface import PluginServerInterface
+from mcdreforged.api.all import *
 
 from kook_api.config import Config
 from kook_api.api import KookApi
