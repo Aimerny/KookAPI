@@ -3,7 +3,7 @@ from typing import Optional
 
 import websockets
 import requests
-from mcdreforged.plugin.server_interface import PluginServerInterface
+from mcdreforged.api.all import *
 
 import kook_api.constsant.api_uri as api_uri
 from kook_api.event import Event, MessageType

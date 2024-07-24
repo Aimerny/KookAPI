@@ -3,8 +3,7 @@ from asyncio import AbstractEventLoop
 import time
 
 import websockets
-from mcdreforged.api.decorator import new_thread
-from mcdreforged.plugin.server_interface import PluginServerInterface
+from mcdreforged.api.all import *
 
 from kook_api import Config, content_parser
 

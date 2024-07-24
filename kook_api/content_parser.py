@@ -1,8 +1,7 @@
 import json
 
 import websockets
-from mcdreforged.plugin.plugin_event import LiteralEvent
-from mcdreforged.plugin.server_interface import PluginServerInterface
+from mcdreforged.api.all import *
 
 import kook_api
 from kook_api.event import Event, ChannelType, MessageType
