@@ -14,13 +14,15 @@ ws_server: websockets
 
 
 async def connect_to_kook(server: PluginServerInterface, config: Config):
-    async with websockets.connect(f"ws://{config.kook_host}:{config.kook_port}/ws") as ws:
-        global ws_server
-        ws_server = ws
-
-        while connect:
-            receive = await ws.recv()
-            content_parser.event_parse(receive, server, ws_server)
+    try:
+        async with websockets.connect(f"ws://{config.kook_host}:{config.kook_port}/ws") as ws:
+            global ws_server
+            ws_server = ws
+            while connect:
+                receive = await ws.recv()
+                content_parser.event_parse(receive, server, ws_server)
+    except Exception:
+        server.logger.error(RText('Kook API connect to ws failed').set_color(RColor.red))
 
 
 @new_thread('Kook API')
